@@ -1,4 +1,25 @@
+import { useState, useEffect } from "react"
+
 export default function Home() {
+  const [darkTheme, setDarkTheme] = useState(undefined);
+
+  const handleToggle = (e) => {
+    setDarkTheme(e.target.checked); // true or false
+  }
+
+  // 第2引数（darkTheme）の値に変更があったら発火する
+  useEffect(() => {
+    if(darkTheme !== undefined) {
+      if(darkTheme) {
+        document.documentElement.setAttribute("data-theme", "dark");
+        window.localStorage.setItem("theme", "dark");
+      } else {
+        document.documentElement.removeAttribute("data-theme");
+        window.localStorage.setItem("theme", "light");
+      }
+    }
+  }, [darkTheme]);
+
   return (
     <div>
       <div className="container">
@@ -7,7 +28,7 @@ export default function Home() {
           <div>
             <form action="#">
               <label className="switch">
-                <input type="checkbox" />
+                <input type="checkbox" onChange={handleToggle} checked={darkTheme} />
                 <span className="slider"></span>
               </label>
             </form>
