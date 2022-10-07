@@ -56,6 +56,9 @@ function setInitialColorMode() {
   const currentColorMode = getInitialColorMode();
   console.log(currentColorMode);
 
+  const element = document.documentElement
+  element.style.setProperty("--initial-color-mode", currentColorMode)
+
   if(currentColorMode === "dark") {
     document.documentElement.setAttribute("data-theme", "dark");
   }
